@@ -26,7 +26,8 @@ function App() {
           }
         />
 
-        {/* Default Redirect */}
+        {/* Default Route */}
+        <Route path="/" element={<SignIn />} />
         <Route path="*" element={<SignIn />} />
       </Routes>
     </Router>

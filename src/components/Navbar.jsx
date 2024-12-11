@@ -13,7 +13,7 @@ const Navbar = () => {
         </div>
         <ul>
           <li className="gap-4 flex py-2">
-            <a className="hover:font-bold" href="#">
+            <a className="hover:font-bold" href="./Manager.jsx">
               PassBot
             </a>
             <a className="hover:font-bold" href="#">
