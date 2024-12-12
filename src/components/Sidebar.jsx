@@ -12,7 +12,7 @@ const Sidebar = () => {
     <>
       <button
         onClick={toggleSidebar}
-        className="fixed top-4 right-4 z-50 bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-600 transition-transform transform hover:scale-110"
+        className="fixed top-20 right-2 z-50 bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-600 transition-transform transform hover:scale-110"
         style={{ zIndex: 1000 }} // Ensures button stays on top of everything
       >
         <lord-icon
