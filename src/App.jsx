@@ -4,33 +4,47 @@ import Navbar from "./components/Navbar";
 import Manager from "./components/Manager";
 import SignIn from "./components/Auth/SignIn";
 import SignUp from "./components/Auth/SignUp";
+import TextUtilities from "./components/TextBot";
+import TodoList from "./components/TodoList";
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
+import { AuthProvider } from "./components/Auth/AuthContext";
 import "./App.css";
 
 function App() {
   return (
-    <Router>
-      <Navbar />
-      <Routes>
-        {/* Public Routes */}
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/signup" element={<SignUp />} />
+    <AuthProvider>
+      <Router>
+        <Navbar />
+        <Routes>
+          {/* Public Routes */}
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/textbot" element={<TextUtilities />} />
 
-        {/* Protected Routes */}
-        <Route
-          path="/manager"
-          element={
-            <ProtectedRoute>
-              <Manager />
-            </ProtectedRoute>
-          }
-        />
+          {/* Protected Routes */}
+          <Route
+            path="/manager"
+            element={
+              <ProtectedRoute>
+                <Manager />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/todolist"
+            element={
+              <ProtectedRoute>
+                <TodoList />
+              </ProtectedRoute>
+            }
+          />
 
-        {/* Default Route */}
-        <Route path="/" element={<SignIn />} />
-        <Route path="*" element={<SignIn />} />
-      </Routes>
-    </Router>
+          {/* Default Route */}
+          <Route path="/" element={<SignIn />} />
+          <Route path="*" element={<SignIn />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 
