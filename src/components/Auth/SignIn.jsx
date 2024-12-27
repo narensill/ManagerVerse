@@ -2,60 +2,14 @@ import React, { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
 import { useNavigate } from "react-router-dom";
-
-const containerStyle = {
-  minHeight: "400px",
-  maxWidth: "300px",
-  margin: "40px auto",
-  background: "#BFDBFE",
-  borderRadius: "2px",
-  boxShadow: "0px 2px 3px rgba(0, 0, 0, 0.2)",
-  display: "flex",
-  flexDirection: "column",
-  overflow: "hidden",
-  fontFamily: "'Raleway', sans-serif",
-  color: "#FFF",
-  alignItems: "center",
-};
-
-const inputStyle = {
-  background: "#F6F7F9",
-  border: "none",
-  borderRadius: "4px",
-  width: "85%",
-  height: "40px",
-  lineHeight: "40px",
-  padding: "10px",
-  color: "rgba(0, 0, 0, 0.5)",
-  outline: "none",
-  marginBottom: "20px",
-  align: "center",
-  marginTop: "10px",
-};
-
-const buttonStyle = {
-  background: "rgba(0, 0, 0, 0.5)",
-  color: "#F6F7F9",
-  height: "40px",
-  lineHeight: "40px",
-  width: "85%",
-  border: "none",
-  borderRadius: "4px",
-  fontWeight: "600",
-  cursor: "pointer",
-  marginBottom: "10px",
-};
-
-const errorStyle = {
-  color: "red",
-};
+import { useAuth } from "../Auth/AuthContext"; // Import useAuth
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [isSignedIn, setIsSignedIn] = useState(false); // New state variable
   const navigate = useNavigate();
+  const { setIsAuthenticated } = useAuth();
 
   const handleSignIn = async () => {
     if (!email || !password) {
@@ -67,13 +21,13 @@ const SignIn = () => {
       await signInWithEmailAndPassword(auth, email, password);
       console.log("Signed in successfully");
       setError(""); // Clear any previous error
-      setIsSignedIn(true); // Set to true if sign-in is successful
+      setIsAuthenticated(true);
       navigate("/manager"); // Redirect to Manager page
     } catch (error) {
       console.error("Error signing in:", error.code, error.message);
-      setIsSignedIn(false); // Set to false if there is an error
+      setIsSignedIn(false); // Reset global state
       if (error.code === "auth/user-not-found") {
-        setError("User  not found. Please sign up.");
+        setError("User not found. Please sign up.");
       } else if (error.code === "auth/wrong-password") {
         setError("Incorrect password. Please try again.");
       } else {
@@ -81,8 +35,56 @@ const SignIn = () => {
       }
     }
   };
+
   const handleNavigateToSignUp = () => {
     navigate("/signup");
+  };
+
+  const containerStyle = {
+    minHeight: "400px",
+    maxWidth: "300px",
+    margin: "40px auto",
+    background: "#BFDBFE",
+    borderRadius: "2px",
+    boxShadow: "0px 2px 3px rgba(0, 0, 0, 0.2)",
+    display: "flex",
+    flexDirection: "column",
+    overflow: "hidden",
+    fontFamily: "'Raleway', sans-serif",
+    color: "#FFF",
+    alignItems: "center",
+  };
+
+  const inputStyle = {
+    background: "#F6F7F9",
+    border: "none",
+    borderRadius: "4px",
+    width: "85%",
+    height: "40px",
+    lineHeight: "40px",
+    padding: "10px",
+    color: "rgba(0, 0, 0, 0.5)",
+    outline: "none",
+    marginBottom: "20px",
+    align: "center",
+    marginTop: "10px",
+  };
+
+  const buttonStyle = {
+    background: "rgba(0, 0, 0, 0.5)",
+    color: "#F6F7F9",
+    height: "40px",
+    lineHeight: "40px",
+    width: "85%",
+    border: "none",
+    borderRadius: "4px",
+    fontWeight: "600",
+    cursor: "pointer",
+    marginBottom: "10px",
+  };
+
+  const errorStyle = {
+    color: "red",
   };
 
   return (

@@ -18,8 +18,8 @@ const Navbar = () => {
           </span>
         </div>
 
-        
-        {true === true && (
+        {/* Navigation Links */}
+        {isAuthenticated ? (
           <ul className="flex gap-6">
             <li>
               <Link
@@ -46,6 +46,25 @@ const Navbar = () => {
               </Link>
             </li>
           </ul>
+        ) : (
+          <ul className="flex gap-6">
+            <li>
+              <Link
+                to="/login"
+                className="hover:font-bold hover:text-blue-700 transition"
+              >
+                Login
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/signup"
+                className="hover:font-bold hover:text-blue-700 transition"
+              >
+                Sign Up
+              </Link>
+            </li>
+          </ul>
         )}
 
         {/* GitHub Link */}
@@ -58,7 +77,7 @@ const Navbar = () => {
             <img
               className="invert w-8 h-8 transition-transform transform hover:scale-125 hover:drop-shadow-lg"
               src="github.png"
-              alt="GitHub logo"
+              alt="GitHub Repository"
             />
           </a>
           <span className="ml-2">
