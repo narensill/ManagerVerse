@@ -88,6 +88,9 @@ const SignUp = () => {
           <span className="text-green-600">Verse</span>/&gt;
         </span>
       </h1>
+      <p className="text-center text-lg text-blue-700 mt-3">
+        From Ideas to Actions, Manage Everything Effortlessly
+      </p>
       <div className="mt-10" style={containerStyle}>
         <h2 className="text-xl text-sky-900 font-bold mt-2">Sign Up</h2>
         <input

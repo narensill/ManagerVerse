@@ -9,6 +9,7 @@ import TodoList from "./components/TodoList";
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
 import { AuthProvider } from "./components/Auth/AuthContext";
 import "./App.css";
+//import HealthBot from "./components/HealthBot";
 
 function App() {
   return (
@@ -19,7 +20,8 @@ function App() {
           {/* Public Routes */}
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/textbot" element={<TextUtilities />} />
+          <Route path="/textbot" element={<TextUtilities />} 
+          />
 
           {/* Protected Routes */}
           <Route
@@ -38,13 +40,23 @@ function App() {
               </ProtectedRoute>
             }
           />
+          {/* <Route
+            path="/healthbot"
+            element={
+              <ProtectedRoute>
+                <HealthBot />
+              </ProtectedRoute>
+            }
+          /> */}
 
           {/* Default Route */}
           <Route path="/" element={<SignIn />} />
           <Route path="*" element={<SignIn />} />
         </Routes>
       </Router>
+      
     </AuthProvider>
+    
   );
 }
 

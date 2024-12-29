@@ -45,6 +45,14 @@ const Navbar = () => {
                 TextBot
               </Link>
             </li>
+            {/* <li>
+              <Link
+                to="/healthbot"
+                className="hover:font-bold hover:text-blue-700 transition"
+              >
+                HealthBot
+              </Link>
+            </li> */}
           </ul>
         ) : (
           <ul className="flex gap-6">
