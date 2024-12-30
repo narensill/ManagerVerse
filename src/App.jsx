@@ -9,7 +9,7 @@ import TodoList from "./components/TodoList";
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
 import { AuthProvider } from "./components/Auth/AuthContext";
 import "./App.css";
-//import HealthBot from "./components/HealthBot";
+import ManagerVerse from "./components/ManagerVerse";
 
 function App() {
   return (
@@ -26,6 +26,14 @@ function App() {
           {/* Protected Routes */}
           <Route
             path="/manager"
+            element={
+              <ProtectedRoute>
+                <ManagerVerse />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/passbot"
             element={
               <ProtectedRoute>
                 <Manager />

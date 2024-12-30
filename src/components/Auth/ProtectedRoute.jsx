@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase";
 import { useNavigate } from "react-router-dom";
+import Loader from "../stylers/Loading";
 
 const ProtectedRoute = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -21,7 +22,7 @@ const ProtectedRoute = ({ children }) => {
   }, [navigate]);
 
   if (loading) {
-    return <p>Loading...</p>; // Show loading indicator while checking auth state
+    return <div className="flex items-center justify-center h-screen"><Loader /></div>; // Show loading indicator while checking auth state
   }
 
   if (!user) {

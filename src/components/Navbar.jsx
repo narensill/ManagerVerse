@@ -1,29 +1,33 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { useAuth } from "C:/Users/silln/Activity/ManagerVerse/src/components/Auth/AuthContext.jsx";
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
-  const { isAuthenticated } = useAuth();
-  console.log("isAuthenticated:", isAuthenticated);
+  const location = useLocation();
+
+  // Define paths where the navbar links should NOT be shown
+  const excludedPaths = ["/manager", "/login", "/signup"];
+  const showLinks = !excludedPaths.includes(location.pathname);
 
   return (
     <nav className="bg-blue-200 shadow-md">
       <div className="mycontainer flex items-center justify-between px-6 py-0 h-16 text-sky-900">
         {/* Logo Section */}
         <div className="logo font-bold px-16 text-2xl flex items-center">
-          <span className="text-blue-700">&lt;</span>
-          Manager
-          <span className="text-blue-700">
-            <span className="text-green-600">Verse</span>/&gt;
-          </span>
+          <a href="/manager">
+            <span className="text-blue-700">&lt;</span>
+            Manager
+            <span className="text-blue-700">
+              <span className="text-green-600">Verse</span>/&gt;
+            </span>
+          </a>
         </div>
 
         {/* Navigation Links */}
-        {isAuthenticated ? (
+        {showLinks && (
           <ul className="flex gap-6">
             <li>
               <Link
-                to="/manager"
+                to="/passbot"
                 className="hover:font-bold hover:text-blue-700 transition"
               >
                 PassBot
@@ -43,33 +47,6 @@ const Navbar = () => {
                 className="hover:font-bold hover:text-blue-700 transition"
               >
                 TextBot
-              </Link>
-            </li>
-            {/* <li>
-              <Link
-                to="/healthbot"
-                className="hover:font-bold hover:text-blue-700 transition"
-              >
-                HealthBot
-              </Link>
-            </li> */}
-          </ul>
-        ) : (
-          <ul className="flex gap-6">
-            <li>
-              <Link
-                to="/login"
-                className="hover:font-bold hover:text-blue-700 transition"
-              >
-                Login
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/signup"
-                className="hover:font-bold hover:text-blue-700 transition"
-              >
-                Sign Up
               </Link>
             </li>
           </ul>

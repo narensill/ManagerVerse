@@ -7,7 +7,7 @@ import {
   doc,
 } from "firebase/firestore";
 import db from "../firebase.js";
-import Clock from "./Clock.jsx";
+import Clock from "./stylers/Clock.jsx";
 
 const TodoList = () => {
   const [todo, setTodo] = useState("");
