@@ -11,6 +11,7 @@ export default defineConfig({
       output: {
         // Ensure ES modules are handled properly
         format: 'es',
+        outDir: 'build',
       },
     },
   },
