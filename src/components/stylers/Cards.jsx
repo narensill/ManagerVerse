@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-const Card = ({ hoverText, hoverImage }) => {
+const Card = ({ hoverText, hoverImage, darkMode }) => {
   return (
-    <StyledWrapper>
+    <StyledWrapper $darkMode={darkMode}>
       <div className="card">
         <img src={hoverImage} alt="Card Icon" className="card-image" />
         <span className="card-text">{hoverText}</span>
@@ -17,7 +17,7 @@ const StyledWrapper = styled.div`
     position: relative;
     width: 250px;
     height: 350px;
-    background: lightblue;
+    background: ${(props) => (props.$darkMode ? "#1E293B" : "lightblue")}; /* Background color */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -41,7 +41,7 @@ const StyledWrapper = styled.div`
     position: absolute;
     font-size: 20px;
     font-weight: bold;
-    color: white;
+    color: ${(props) => (props.$darkMode ? "#9CA3AF" : "#1E293B")}; 
     text-align: center;
     opacity: 0;
     transform: translateY(20px);

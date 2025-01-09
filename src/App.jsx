@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Manager from "./components/Manager";
@@ -10,17 +10,47 @@ import ProtectedRoute from "./components/Auth/ProtectedRoute";
 import { AuthProvider } from "./components/Auth/AuthContext";
 import "./App.css";
 import ManagerVerse from "./components/ManagerVerse";
+import HealthBot from "./components/HealthBot";
+import ConvertBot from "./components/ConvertBot";
+import FileConversion from "./components/Converter/FileConversion";
+import ImageConversion from "./components/Converter/ImageConversion";
+import PdfToImage from "./components/Converter/PdftoImage";
+import TextToJson from "./components/Converter/TextToJson";
+import FileCompression from "./components/Converter/FileCompressor";
+import ImageResizer from "./components/Converter/ImageResizer";
+import UnitConverter from "./components/Converter/UnitConverter";
 
 function App() {
+  // Initialize darkMode state from localStorage or default to false
+  const [darkMode, setDarkMode] = useState(() => {
+    const storedTheme = localStorage.getItem("darkMode");
+    return storedTheme === "true"; // Convert string to boolean
+  });
+
+  // Update localStorage whenever darkMode changes
+  useEffect(() => {
+    localStorage.setItem("darkMode", darkMode);
+  }, [darkMode]);
+
   return (
     <AuthProvider>
       <Router>
-        <Navbar />
+        {/* Pass darkMode and setDarkMode to Navbar and other components */}
+        <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+
         <Routes>
           {/* Public Routes */}
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/textbot" element={<TextUtilities />} 
+          <Route
+            path="/login"
+            element={<SignIn darkMode={darkMode} setDarkMode={setDarkMode} />}
+          />
+          <Route
+            path="/signup"
+            element={<SignUp darkMode={darkMode} setDarkMode={setDarkMode} />}
+          />
+          <Route
+            path="/textbot"
+            element={<TextUtilities darkMode={darkMode} setDarkMode={setDarkMode} />}
           />
 
           {/* Protected Routes */}
@@ -28,7 +58,7 @@ function App() {
             path="/manager"
             element={
               <ProtectedRoute>
-                <ManagerVerse />
+                <ManagerVerse darkMode={darkMode} setDarkMode={setDarkMode} />
               </ProtectedRoute>
             }
           />
@@ -36,7 +66,7 @@ function App() {
             path="/passbot"
             element={
               <ProtectedRoute>
-                <Manager />
+                <Manager darkMode={darkMode} setDarkMode={setDarkMode} />
               </ProtectedRoute>
             }
           />
@@ -44,27 +74,88 @@ function App() {
             path="/todolist"
             element={
               <ProtectedRoute>
-                <TodoList />
+                <TodoList darkMode={darkMode} setDarkMode={setDarkMode} />
               </ProtectedRoute>
             }
           />
-          {/* <Route
+          <Route
             path="/healthbot"
             element={
               <ProtectedRoute>
-                <HealthBot />
+                <HealthBot darkMode={darkMode} setDarkMode={setDarkMode} />
               </ProtectedRoute>
             }
-          /> */}
-
+          />
+          <Route
+            path="/convertbot"
+            element={
+              <ProtectedRoute>
+                <ConvertBot darkMode={darkMode} setDarkMode={setDarkMode} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/imgcov"
+            element={
+              <ProtectedRoute>
+                <ImageConversion darkMode={darkMode} setDarkMode={setDarkMode} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/fileconv"
+            element={
+              <ProtectedRoute>
+                <FileConversion darkMode={darkMode} setDarkMode={setDarkMode} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/imgrsz"
+            element={
+              <ProtectedRoute>
+                <ImageResizer darkMode={darkMode} setDarkMode={setDarkMode} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/pdftoimg"
+            element={
+              <ProtectedRoute>
+                <PdfToImage darkMode={darkMode} setDarkMode={setDarkMode} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/txtjson"
+            element={
+              <ProtectedRoute>
+                <TextToJson darkMode={darkMode} setDarkMode={setDarkMode} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/unit"
+            element={
+              <ProtectedRoute>
+                <UnitConverter darkMode={darkMode} setDarkMode={setDarkMode} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/compress"
+            element={
+              <ProtectedRoute>
+                <FileCompression darkMode={darkMode} setDarkMode={setDarkMode} />
+              </ProtectedRoute>
+            }
+          />
           {/* Default Route */}
-          <Route path="/" element={<SignIn />} />
-          <Route path="*" element={<SignIn />} />
+          <Route path="/" element={<SignIn darkMode={darkMode} setDarkMode={setDarkMode} />} />
+          <Route path="*" element={<SignIn darkMode={darkMode} setDarkMode={setDarkMode} />} />
         </Routes>
       </Router>
-      
     </AuthProvider>
-    
   );
 }
 

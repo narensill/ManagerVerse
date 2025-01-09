@@ -1,32 +1,29 @@
-import React, { useState } from "react";
-import Card from "./stylers/Cards";
+// ConvertBot.js
+import React from "react";
+import { Link } from "react-router-dom";
+import ConvertCard from "./stylers/ConvertCard"; // Importing ConvertCard component
 
-const ManagerVerse = ({ darkMode, setDarkMode }) => {
+const ConvertBot = ({ darkMode, setDarkMode }) => {
   const cardData = [
     {
-      link: "/passbot",
-      hoverText: "Password Manager",
-      hoverImage: "/lock.png",
+      link: "/imgcov",
+      hoverText: "Image Conversion",
     },
     {
-      link: "/todolist",
-      hoverText: "Task Manager",
-      hoverImage: "/to-do-list.png",
+      link: "/imgrsz",
+      hoverText: "Image Resizer",
     },
     {
-      link: "/textbot",
-      hoverText: "Text Bot",
-      hoverImage: "/text-box.png",
+      link: "/unit",
+      hoverText: "Unit Converter",
     },
     {
-      link: "/healthbot",
-      hoverText: "Health Bot",
-      hoverImage: "/heartbeat.png",
+      link: "/txtjson",
+      hoverText: "Text to JSON Conversion",
     },
     {
-      link: "/convertbot",
-      hoverText: "Convert Bot",
-      hoverImage: "/technology.png",
+      link: "/compress",
+      hoverText: "File Compression",
     },
   ];
 
@@ -49,52 +46,50 @@ const ManagerVerse = ({ darkMode, setDarkMode }) => {
           style={{ backgroundAttachment: "fixed" }}
         ></div>
       </div>
+
       <h1
-        className={`text-6xl font-bold text-center mt-10 animate-fadeInDown ${
+        className={`text-4xl font-bold text-center mt-10 animate-fadeInDown ${
           darkMode ? "text-gray-300" : "text-sky-900"
         }`}
       >
         <span className={`${darkMode ? "text-sky-300" : "text-blue-700"}`}>
           &lt;
         </span>
-        Manager
+        Convert
         <span className={`${darkMode ? "text-sky-300" : "text-blue-700"}`}>
           <span className={`${darkMode ? "text-green-400" : "text-green-600"}`}>
-            Verse
+            Bot
           </span>
-          /&gt;
         </span>
+        /&gt;
       </h1>
-      <p
-        className={`text-center text-lg mt-3 mb-40 animate-fadeIn ${
-          darkMode ? "text-gray-400" : "text-blue-700"
-        }`}
-        style={{ animationDelay: "0.3s" }}
-      >
-        From Ideas to Actions, Manage Everything Effortlessly
+
+      <p className="text-center text-lg text-blue-700 mb-6 animate-fadeIn">
+        Convert Files and Images with Ease
       </p>
+
       <div className="flex justify-center gap-10 mt-10">
         {cardData.map((card, index) => (
-          <a
+          <Link
             key={index}
-            href={card.link}
+            to={card.link}
             className={`transition-transform transform hover:scale-105 ${
               darkMode ? "text-gray-400" : "text-indigo-950"
             }`}
             style={{ animationDelay: `${0.4 + index * 0.1}s` }}
           >
             <div className="animate-zoomIn">
-              <Card
+              <ConvertCard
                 hoverText={card.hoverText}
                 hoverImage={card.hoverImage}
                 darkMode={darkMode}
               />
             </div>
-          </a>
+          </Link>
         ))}
       </div>
     </>
   );
 };
 
-export default ManagerVerse;
+export default ConvertBot;

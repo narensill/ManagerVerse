@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "tailwindcss/tailwind.css";
 
-const TextUtilities = () => {
+const TextUtilities = ({ darkMode, setDarkMode }) => {
   const [text, setText] = useState("");
   const [findText, setFindText] = useState("");
   const [replaceText, setReplaceText] = useState("");
@@ -68,17 +68,42 @@ const TextUtilities = () => {
 
   return (
     <>
-      <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:100vh]">
-        <div className="absolute bottom-0 left-0 right-0 top-0 bg-[radial-gradient(circle_500px_at_50%_200px,#C9EBFF,transparent)]"></div>
+      <div
+        className={`fixed inset-0 -z-10 h-full w-full transition-all duration-300 ease-in-out ${
+          darkMode
+            ? "bg-slate-950"
+            : "bg-white bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:100vh]"
+        }`}
+        style={{ height: "100vh", backgroundAttachment: "fixed" }}
+      >
+        <div
+          className={`fixed inset-0 transition-all duration-300 ease-in-out ${
+            darkMode
+              ? "bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"
+              : "bg-[radial-gradient(circle_500px_at_50%_200px,#C9EBFF,transparent)]"
+          }`}
+          style={{ backgroundAttachment: "fixed" }}
+        ></div>
       </div>
-      <div className="min-h-screen flex flex-col items-center mt-5 px-5">
-        <h1 className="text-4xl text-sky-900 font-bold text-center mb-2">
-          <span className="text-blue-700">&lt;</span>TEXT
-          <span className="text-blue-700">
-            <span className="text-green-600">bot</span>/&gt;
+
+      <div className="md:mycontainer min-h-screen flex flex-col items-center px-5">
+        <h1
+          className={`text-4xl font-bold text-center animate-fadeInDown ${
+            darkMode ? "text-gray-300" : "text-sky-900"
+          }`}
+        >
+          <span className={darkMode ? "text-sky-300" : "text-blue-700"}>
+            &lt;
+          </span>
+          TEXT
+          <span className={darkMode ? "text-sky-300" : "text-blue-700"}>
+            <span className={darkMode ? "text-green-400" : "text-green-600"}>
+              bot
+            </span>
+            /&gt;
           </span>
         </h1>
-        <p className="text-center text-lg text-blue-700 mb-6">
+        <p className="text-center text-lg text-blue-700 mb-6 animate-fadeIn">
           Edit, Format, Perfect – Instantly
         </p>
 
@@ -94,49 +119,49 @@ const TextUtilities = () => {
         {/* Formatting Buttons */}
         <div className="w-3/4 grid grid-cols-2 md:grid-cols-4 gap-4">
           <button
-            className="bg-blue-500 text-white rounded-full px-4 py-2 hover:bg-blue-600 transition-transform transform hover:scale-105"
+            className="bg-sky-600 text-white rounded-full px-4 py-2 hover:bg-sky-800 transition-transform transform hover:scale-105"
             onClick={handleUppercase}
           >
             Uppercase
           </button>
           <button
-            className="bg-blue-500 text-white rounded-full px-4 py-2 hover:bg-blue-600 transition-transform transform hover:scale-105"
+            className="bg-sky-600 text-white rounded-full px-4 py-2 hover:bg-sky-800 transition-transform transform hover:scale-105"
             onClick={handleLowercase}
           >
             Lowercase
           </button>
           <button
-            className="bg-blue-500 text-white rounded-full px-4 py-2 hover:bg-blue-600 transition-transform transform hover:scale-105"
+            className="bg-sky-600 text-white rounded-full px-4 py-2 hover:bg-sky-800 transition-transform transform hover:scale-105"
             onClick={handleTitleCase}
           >
             Title Case
           </button>
           <button
-            className="bg-blue-500 text-white rounded-full px-4 py-2 hover:bg-blue-600 transition-transform transform hover:scale-105"
+            className="bg-sky-600 text-white rounded-full px-4 py-2 hover:bg-sky-800 transition-transform transform hover:scale-105"
             onClick={handleReverseText}
           >
             Reverse Text
           </button>
           <button
-            className="bg-blue-500 text-white rounded-full px-4 py-2 hover:bg-blue-600 transition-transform transform hover:scale-105"
+            className="bg-sky-600 text-white rounded-full px-4 py-2 hover:bg-sky-800 transition-transform transform hover:scale-105"
             onClick={handleExtraSpaces}
           >
             Remove Extra Spaces
           </button>
           <button
-            className="bg-blue-500 text-white rounded-full px-4 py-2 hover:bg-blue-600 transition-transform transform hover:scale-105"
+            className="bg-sky-600 text-white rounded-full px-4 py-2 hover:bg-sky-800 transition-transform transform hover:scale-105"
             onClick={handleCopy}
           >
             Copy Text
           </button>
           <button
-            className="bg-blue-500 text-white rounded-full px-4 py-2 hover:bg-blue-600 transition-transform transform hover:scale-105"
+            className="bg-sky-600 text-white rounded-full px-4 py-2 hover:bg-sky-800 transition-transform transform hover:scale-105"
             onClick={handleHighlightFrequentWord}
           >
             Highlight Frequent Words
           </button>
           <button
-            className="bg-blue-500 text-white rounded-full px-4 py-2 hover:bg-blue-600 transition-transform transform hover:scale-105"
+            className="bg-sky-600 text-white rounded-full px-4 py-2 hover:bg-sky-800 transition-transform transform hover:scale-105"
             onClick={handleClearText}
           >
             Clear Text
@@ -144,34 +169,34 @@ const TextUtilities = () => {
         </div>
 
         {/* Find and Replace Section */}
-        <div className="w-3/4 mt-8 p-4 bg-white border border-gray-300 rounded shadow-sm">
-          <h2 className="text-xl font-semibold text-blue-700 mb-4">
+        <div className="w-3/4 mt-8 p-4 bg-transparent shadow-sm">
+          <h2 className={`text-xl font-semibold  mb-4 ${darkMode ? "text-gray-400" : "text-indigo-700" }`}>
             Find and Replace
           </h2>
           <div className="flex flex-col gap-4">
             <input
               type="text"
-              className="border rounded px-4 py-2"
+              className="border bg-transparent rounded px-4 py-2"
               placeholder="Find text"
               value={findText}
               onChange={(e) => setFindText(e.target.value)}
             />
             <input
               type="text"
-              className="border rounded px-4 py-2"
+              className="border bg-transparent rounded px-4 py-2"
               placeholder="Replace with"
               value={replaceText}
               onChange={(e) => setReplaceText(e.target.value)}
             />
             <div className="flex gap-4">
               <button
-                className="bg-green-500 text-white rounded px-4 py-2 hover:bg-green-600 transition-transform transform hover:scale-105"
+                className="bg-sky-600 text-white rounded px-4 py-2 hover:bg-sky-800 transition-transform transform hover:scale-105"
                 onClick={handleReplace}
               >
                 Replace
               </button>
               <button
-                className="bg-green-500 text-white rounded px-4 py-2 hover:bg-green-600 transition-transform transform hover:scale-105"
+                className="bg-sky-600 text-white rounded px-4 py-2 hover:bg-sky-800 transition-transform transform hover:scale-105"
                 onClick={handleReplaceAll}
               >
                 Replace All
@@ -181,10 +206,11 @@ const TextUtilities = () => {
         </div>
 
         {/* Text Summary Section */}
-        <div className="w-3/4 mt-8 p-4 bg-white border border-gray-300 rounded shadow-sm">
-          <h2 className="text-xl font-semibold text-blue-700 mb-2">
+        <div className="w-3/4 mt-8 p-4 bg-transparent shadow-sm">
+          <h2 className={`text-xl font-semibold  mb-4 ${darkMode ? "text-gray-400" : "text-indigo-700" }`}>
             Text Summary
           </h2>
+          <div className={darkMode ? 'text-gray-400' : 'text-black'}>
           <p>
             <strong>Words:</strong>{" "}
             {text.split(/\s+/).filter((word) => word).length}
@@ -199,9 +225,9 @@ const TextUtilities = () => {
           <p>
             <strong>Lexical Density:</strong>{" "}
             {lexicalDensity !== null ? `${lexicalDensity}%` : "N/A"}
-          </p>
+          </p></div>
           <button
-            className="mt-2 bg-purple-500 text-white rounded px-4 py-2 hover:bg-purple-600 transition-transform transform hover:scale-105"
+            className="mt-2 bg-sky-600 text-white rounded px-4 py-2 hover:bg-sky-800 transition-transform transform hover:scale-105"
             onClick={calculateLexicalDensity}
           >
             Calculate Lexical Density
@@ -209,9 +235,9 @@ const TextUtilities = () => {
         </div>
 
         {/* Text Preview Section */}
-        <div className="w-3/4 mt-5 p-4 bg-white border border-gray-300 rounded shadow-sm">
-          <h2 className="text-xl font-semibold text-blue-700 mb-2">Preview</h2>
-          <p>
+        <div className="w-3/4 mt-5 p-4 shadow-sm">
+          <h2 className={`text-xl font-semibold  mb-4 ${darkMode ? "text-gray-400" : "text-indigo-700" }`}>Preview</h2>
+          <p className={darkMode ? 'text-gray-400' : 'text-black'}>
             {text.length > 0 ? text : "Enter something to preview it here."}
           </p>
         </div>

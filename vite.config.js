@@ -1,7 +1,22 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-})
+  optimizeDeps: {
+    include: ['@ffmpeg/ffmpeg'], // Ensure FFmpeg is pre-bundled
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        // Ensure ES modules are handled properly
+        format: 'es',
+      },
+    },
+  },
+  resolve: {
+    alias: {
+      // If necessary, alias paths for compatibility
+    },
+  },
+});

@@ -1,25 +1,57 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import Switch from "./stylers/DarkButton";
 
-const Navbar = () => {
+const Navbar = ({ darkMode, setDarkMode }) => {
   const location = useLocation();
 
   // Define paths where the navbar links should NOT be shown
-  const excludedPaths = ["/manager", "/login", "/signup"];
+  const excludedPaths = ["/manager", "/login", "/signup", "/", "*"];
   const showLinks = !excludedPaths.includes(location.pathname);
 
+  // Define paths where the logo should not be clickable
+  const nonClickableLogoPaths = ["/login", "/signup" , "/", "*"];
+
   return (
-    <nav className="bg-blue-200 shadow-md">
-      <div className="mycontainer flex items-center justify-between px-6 py-0 h-16 text-sky-900">
-        {/* Logo Section */}
-        <div className="logo font-bold px-16 text-2xl flex items-center">
-          <a href="/manager">
-            <span className="text-blue-700">&lt;</span>
-            Manager
-            <span className="text-blue-700">
-              <span className="text-green-600">Verse</span>/&gt;
+    <nav
+      className={`shadow-md ${
+        darkMode ? "bg-gray-900 text-gray-300" : "bg-blue-200 text-sky-900"
+      }`}
+    >
+      <div className="mycontainer flex items-center justify-between px-6 py-0 h-16">
+        {/* Logo Section (Left) */}
+        <div className="logo font-bold text-2xl flex items-center">
+          {nonClickableLogoPaths.includes(location.pathname) ? (
+            <span>
+              <span className={darkMode ? "text-sky-300" : "text-blue-700"}>
+                &lt;
+              </span>
+              Manager
+              <span className={darkMode ? "text-sky-300" : "text-blue-700"}>
+                <span
+                  className={darkMode ? "text-green-400" : "text-green-600"}
+                >
+                  Verse
+                </span>
+                /&gt;
+              </span>
             </span>
-          </a>
+          ) : (
+            <a href="/manager">
+              <span className={darkMode ? "text-sky-300" : "text-blue-700"}>
+                &lt;
+              </span>
+              Manager
+              <span className={darkMode ? "text-sky-300" : "text-blue-700"}>
+                <span
+                  className={darkMode ? "text-green-400" : "text-green-600"}
+                >
+                  Verse
+                </span>
+                /&gt;
+              </span>
+            </a>
+          )}
         </div>
 
         {/* Navigation Links */}
@@ -28,7 +60,9 @@ const Navbar = () => {
             <li>
               <Link
                 to="/passbot"
-                className="hover:font-bold hover:text-blue-700 transition"
+                className={`hover:font-bold transition ${
+                  darkMode ? "hover:text-gray-400" : "hover:text-blue-700"
+                }`}
               >
                 PassBot
               </Link>
@@ -36,7 +70,9 @@ const Navbar = () => {
             <li>
               <Link
                 to="/todolist"
-                className="hover:font-bold hover:text-blue-700 transition"
+                className={`hover:font-bold transition ${
+                  darkMode ? "hover:text-gray-400" : "hover:text-blue-700"
+                }`}
               >
                 TaskBot
               </Link>
@@ -44,37 +80,68 @@ const Navbar = () => {
             <li>
               <Link
                 to="/textbot"
-                className="hover:font-bold hover:text-blue-700 transition"
+                className={`hover:font-bold transition ${
+                  darkMode ? "hover:text-gray-400" : "hover:text-blue-700"
+                }`}
               >
                 TextBot
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/healthbot"
+                className={`hover:font-bold transition ${
+                  darkMode ? "hover:text-gray-400" : "hover:text-blue-700"
+                }`}
+              >
+                HealthBot
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/convertbot"
+                className={`hover:font-bold transition ${
+                  darkMode ? "hover:text-gray-400" : "hover:text-blue-700"
+                }`}
+              >
+                ConvertBot
               </Link>
             </li>
           </ul>
         )}
 
-        {/* GitHub Link */}
-        <div className="text-sky-900 flex items-center px-16">
-          <a
-            href="https://github.com/narensill/ManagerVerse"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img
-              className="invert w-8 h-8 transition-transform transform hover:scale-125 hover:drop-shadow-lg"
-              src="github.png"
-              alt="GitHub Repository"
-            />
-          </a>
-          <span className="ml-2">
+        {/* Right Section: Switch and GitHub Link */}
+        <div className="flex items-center gap-6">
+          <div className="text-sky-900">
+            <Switch darkMode={darkMode} setDarkMode={setDarkMode} />
+          </div>
+          <div className="text-sky-900 flex items-center">
             <a
               href="https://github.com/narensill/ManagerVerse"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:underline"
             >
-              GitHub
+              <img
+                className={`w-8 h-8 transition-transform transform hover:scale-125 hover:drop-shadow-lg ${
+                  !darkMode ? "invert" : ""
+                }`}
+                src="github.png"
+                alt="GitHub Repository"
+              />
             </a>
-          </span>
+            <span className="ml-2">
+              <a
+                href="https://github.com/narensill/ManagerVerse"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`hover:underline ${
+                  darkMode ? "text-green-500" : "text-black"
+                }`}
+              >
+                GitHub
+              </a>
+            </span>
+          </div>
         </div>
       </div>
     </nav>

@@ -7,9 +7,9 @@ import {
   doc,
 } from "firebase/firestore";
 import db from "../firebase.js";
-import Clock from "./stylers/Clock.jsx";
+import Clock from "./Sidebars/Clock.jsx";
 
-const TodoList = () => {
+const TodoList = ({ darkMode, setDarkMode }) => {
   const [todo, setTodo] = useState("");
   const [time, setTime] = useState("");
   const [todoArray, setTodoArray] = useState([]);
@@ -104,35 +104,77 @@ const TodoList = () => {
   return (
     <>
       <Clock />
-      <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:100vh]">
-        <div className="absolute bottom-0 left-0 right-0 top-0 bg-[radial-gradient(circle_500px_at_50%_200px,#C9EBFF,transparent)]"></div>
+      <div
+        className={`fixed inset-0 -z-10 h-full w-full transition-all duration-300 ease-in-out ${
+          darkMode
+            ? "bg-slate-950"
+            : "bg-white bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:100vh]"
+        }`}
+        style={{ height: "100vh", backgroundAttachment: "fixed" }}
+      >
+        <div
+          className={`fixed inset-0 transition-all duration-300 ease-in-out ${
+            darkMode
+              ? "bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"
+              : "bg-[radial-gradient(circle_500px_at_50%_200px,#C9EBFF,transparent)]"
+          }`}
+          style={{ backgroundAttachment: "fixed" }}
+        ></div>
       </div>
-      <div className="todo-container mt-5">
-        <h1 className="text-4xl text-sky-900 font-bold text-center">
-          <span className="text-blue-700">&lt;</span>TASK
-          <span className="text-blue-700">
-            <span className="text-green-600">bot</span>/&gt;
+
+      <div className="md:mycontainer">
+        <h1
+          className={`text-4xl font-bold text-center animate-fadeInDown ${
+            darkMode ? "text-gray-300" : "text-sky-900"
+          }`}
+        >
+          <span className={darkMode ? "text-sky-300" : "text-blue-700"}>
+            &lt;
+          </span>
+          TASK
+          <span className={darkMode ? "text-sky-300" : "text-blue-700"}>
+            <span className={darkMode ? "text-green-400" : "text-green-600"}>
+              bot
+            </span>
+            /&gt;
           </span>
         </h1>
+        <p className="text-center text-lg text-blue-700 mb-6 animate-fadeIn">
+          Track your tasks efficiently!!
+        </p>
         <div className="flex flex-col items-center px-5 p-4 gap-4">
+
           <input
             value={todo}
             onChange={handleChange}
             placeholder="Enter a new task"
-            className="rounded-lg border border-sky-700 w-1/2 text-black p-4 py-1"
+            className={`rounded-lg border border-sky-700 w-1/2 p-4 py-1  ${
+              darkMode ? "bg-transparent text-white" : "bg-white text-black"
+            }`}
             type="text"
           />
           <input
             value={time}
             onChange={handleTimeChange}
             type="datetime-local"
-            className="rounded-lg border border-sky-700 w-1/2 text-black p-4 py-1"
+            className={`rounded-lg border border-sky-700 w-1/2 p-4 py-1  ${
+              darkMode ? "bg-transparent text-white" : "bg-white text-black"
+            }`}
           />
           <button
             onClick={addTodo}
             disabled={!todo || !time}
-            className="text-black bg-sky-100 flex justify-center items-center rounded-full px-4 py-2 w-fit hover:bg-blue-200 transition-transform transform hover:scale-105 hover:drop-shadow-lg border border-blue-800 hover:font-bold"
+            className={` flex justify-center items-center rounded-full px-4 py-2 w-fit transition-transform transform hover:scale-105 hover:drop-shadow-lg hover:font-bold ${
+              darkMode
+                ? "text-white bg-transparent border border-blue-600"
+                : "text-black bg-sky-100 border border-blue-800 hover:bg-blue-200"
+            }`}
           >
+            <lord-icon
+              src="https://cdn.lordicon.com/sbnjyzil.json"
+              trigger="hover"
+              stroke="bold"
+            ></lord-icon>
             Add Task
           </button>
         </div>
@@ -151,17 +193,25 @@ const TodoList = () => {
             </div>
           ) : (
             <>
-              <table className="table-auto w-3/4 text-center border-collapse border border-sky-500 mx-auto mt-4">
-                <thead className="bg-sky-700 text-sky-950">
+              <table className="table-auto w-3/4 text-center border-collapse border border-sky-800 mx-auto mt-4">
+                <thead
+                  className={
+                    darkMode
+                      ? "bg-sky-900 text-gray-400"
+                      : "bg-sky-700 text-sky-950"
+                  }
+                >
                   <tr>
-                    <th className="border border-sky-500 px-4 py-2">Task</th>
-                    <th className="border border-sky-500 px-4 py-2">
-                      Scheduled Time
-                    </th>
-                    <th className="border border-sky-500 px-4 py-2">Actions</th>
+                    <th className=" px-4 py-2">Task</th>
+                    <th className="+px-4 py-2">Scheduled Time</th>
+                    <th className=" px-4 py-2">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="bg-sky-100">
+                <tbody
+                  className={
+                    darkMode ? "bg-transparent text-gray-300" : "bg-sky-100"
+                  }
+                >
                   {todoArray.map((item) => (
                     <tr key={item.id}>
                       <td className="border border-sky-500 px-4 py-2">
@@ -171,18 +221,42 @@ const TodoList = () => {
                         {new Date(item.time).toLocaleString()}
                       </td>
                       <td className="border border-sky-500 px-4 py-2">
-                        <button
-                          onClick={() => editTodo(item.id)}
-                          className="bg-yellow-400 text-white px-2 py-1 rounded-lg mr-2 hover:bg-yellow-500"
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            padding: "0 10px",
+                          }}
                         >
-                          Edit
-                        </button>
-                        <button
-                          onClick={() => deleteTodo(item.id)}
-                          className="bg-red-500 text-white px-2 py-1 rounded-lg hover:bg-red-600"
-                        >
-                          Delete
-                        </button>
+                          <img
+                            className={`transition-transform transform hover:scale-110 hover:drop-shadow-lg ${
+                              darkMode ? "invert" : ""
+                            }`}
+                            src="trash.png"
+                            alt="trash"
+                            onClick={() => deleteTodo(item.id)}
+                            style={{
+                              cursor: "pointer",
+                              width: "22px",
+                              height: "22px",
+                              margin: "10px",
+                            }}
+                          />
+                          <img
+                            className={`transition-transform transform hover:scale-110 hover:drop-shadow-lg ${
+                              darkMode ? "invert" : ""
+                            }`}
+                            src="edit.png"
+                            alt="edit"
+                            onClick={() => editTodo(item.id)}
+                            style={{
+                              cursor: "pointer",
+                              width: "22px",
+                              height: "22px",
+                            }}
+                          />
+                        </div>
                       </td>
                     </tr>
                   ))}
