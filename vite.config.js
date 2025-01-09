@@ -4,22 +4,22 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   optimizeDeps: {
-    include: ['@ffmpeg/ffmpeg', 'styled-components'], // Pre-bundle FFmpeg for optimization
+    include: ['@ffmpeg/ffmpeg', 'styled-components'],
   },
   build: {
-    outDir: 'build', // Set the output directory for the build files
-    emptyOutDir: true, // Clears the build folder before building
+    outDir: 'dist', // Change back to 'dist' as Vercel expects this
+    emptyOutDir: true,
     rollupOptions: {
-      external: ['jszip' , 'styled-components'], // Mark jszip as an external module
+      external: ['jszip', 'styled-components'],
       output: {
-        format: 'es', // Ensure ES module format for compatibility
+        format: 'es',
       },
     },
   },
   resolve: {
     alias: {
-      '@components': '/src/components', // Example alias for components
-      '@utils': '/src/utils', // Example alias for utilities
+      '@components': '/src/components',
+      '@utils': '/src/utils',
     },
   },
 });
