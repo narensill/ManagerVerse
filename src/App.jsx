@@ -12,9 +12,9 @@ import "./App.css";
 import ManagerVerse from "./components/ManagerVerse";
 import HealthBot from "./components/HealthBot";
 import ConvertBot from "./components/ConvertBot";
-import FileConversion from "./components/Converter/FileConversion";
+
 import ImageConversion from "./components/Converter/ImageConversion";
-import PdfToImage from "./components/Converter/PdftoImage";
+
 import TextToJson from "./components/Converter/TextToJson";
 import FileCompression from "./components/Converter/FileCompressor";
 import ImageResizer from "./components/Converter/ImageResizer";
@@ -103,14 +103,6 @@ function App() {
             }
           />
           <Route
-            path="/fileconv"
-            element={
-              <ProtectedRoute>
-                <FileConversion darkMode={darkMode} setDarkMode={setDarkMode} />
-              </ProtectedRoute>
-            }
-          />
-          <Route
             path="/imgrsz"
             element={
               <ProtectedRoute>
@@ -118,14 +110,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route
-            path="/pdftoimg"
-            element={
-              <ProtectedRoute>
-                <PdfToImage darkMode={darkMode} setDarkMode={setDarkMode} />
-              </ProtectedRoute>
-            }
-          />
+          
           <Route
             path="/txtjson"
             element={
