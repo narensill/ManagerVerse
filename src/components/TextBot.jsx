@@ -109,7 +109,7 @@ const TextUtilities = ({ darkMode, setDarkMode }) => {
 
         {/* Text Input */}
         <textarea
-          className="w-3/4 p-3 bg-transparent border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-300 focus:border-transparent mb-5"
+          className="w-3/4 p-3 bg-transparent border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-300 focus:border-transparent mb-5 text-gray-600"
           rows="8"
           value={text}
           onChange={(e) => setText(e.target.value)}
